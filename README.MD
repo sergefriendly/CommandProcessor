@@ -76,7 +76,7 @@ void half_sum() {
   double a = d(cli[1]);
   double b = d(cli[2]);
   double result = (a + b) / 2;
-  io::println("The half-sum of " a, " and ", b, " is ", io::BLUE, result, io::NO);
+  io::println("The half-sum of ", a, " and ", b, " is ", io::BLUE, result, io::NO);
 }
 
 Command cmd[] = {
