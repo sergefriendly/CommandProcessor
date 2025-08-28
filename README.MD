@@ -19,8 +19,9 @@
 ```C++
 #include "CommandProcessor.h"
 #include "io.h"
+#include "utils"
 
-CommandProcessor<32, 16> cli;
+CommandProcessor<64, 16> cli;
 
 void say() {
   io::println("Скажи", cli[1]);
@@ -38,7 +39,6 @@ double NewtonRaphsonSqrt(double x, double initial_guess, double iterations, bool
 }
 
 void sqrt() {
-  io::cli.showWelcome().setDebugMode(false);
   int result = NewtonRaphsonSqrt(utils::d(cli[1], utils::d(cli[2], utils:i(cli[3]));
   io::println(io::ORANGE, result, io::NO);
 }
@@ -46,14 +46,41 @@ void sqrt() {
 Command cmd[] = {
   {"say", say, -1},
   {"sqrt", sqrt, -1},
-}
+};
 
 void setup() {
   io::init(115200);
+  cli.set.Prompt(">> ").showWelcome().setDebugMode(false);
   cli.setCommands(cmd);
 }
 
 void loop() {
   cli.readInput();
+}
+```
+
+### Либо ещё проще
+```C++
+#include "CommandProcessor.h"
+#include "io.h"
+#include "utils"
+
+using utils::i; // char* to int
+using utils::d; // char* to double
+
+CommandProcessor<64, 16> cli;
+
+void half_sum() {
+  int result = (d(cli[1]) + d(cli[2])) / 2;
+  io::println(io::BLUE, result, io::NO);
+}
+
+Command cmd[] = {
+  {"hsum", half_sum, -1},
+};
+
+int main() {
+  cli.run(cmd, false, ">>> "); 
+  return 0;
 }
 ```
