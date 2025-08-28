@@ -19,12 +19,15 @@
 ```C++
 #include "CommandProcessor.h"
 #include "io.h"
-#include "utils"
+#include "utils.h"
+
+using utils::i; // char* to int
+using utils::d; // char* to double
 
 CommandProcessor<64, 16> cli;
 
 void say() {
-  io::println("Скажи", cli[1]);
+  io::println(io::YELLOW, "!!! ", cli[1], " !!!", io::NO);
 }
 
 double NewtonRaphsonSqrt(double x, double initial_guess, double iterations, bool verbose = false) {
@@ -39,7 +42,7 @@ double NewtonRaphsonSqrt(double x, double initial_guess, double iterations, bool
 }
 
 void sqrt() {
-  int result = NewtonRaphsonSqrt(utils::d(cli[1], utils::d(cli[2], utils:i(cli[3]));
+  int result = NewtonRaphsonSqrt( d(cli[1]), d(cli[2]), i(cli[3]) );
   io::println(io::ORANGE, result, io::NO);
 }
 
@@ -63,16 +66,17 @@ void loop() {
 ```C++
 #include "CommandProcessor.h"
 #include "io.h"
-#include "utils"
+#include "utils.h"
 
-using utils::i; // char* to int
 using utils::d; // char* to double
 
 CommandProcessor<64, 16> cli;
 
 void half_sum() {
-  int result = (d(cli[1]) + d(cli[2])) / 2;
-  io::println(io::BLUE, result, io::NO);
+  double a = d(cli[1]);
+  double b = d(cli[2]);
+  double result = (a + b) / 2;
+  io::println("The half-sum of " a, " and ", b, " is ", io::BLUE, result, io::NO);
 }
 
 Command cmd[] = {
