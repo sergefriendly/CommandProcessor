@@ -84,7 +84,7 @@ Command cmd[] = {
 };
 
 int main() {
-  cli.run(cmd, false, ">>> "); 
+  cli.run(cmd, false, ">>> "); // debugMode = false, prompt = ">>> "
   return 0;
 }
 ```
