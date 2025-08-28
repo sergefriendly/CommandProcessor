@@ -53,7 +53,7 @@ Command cmd[] = {
 
 void setup() {
   io::init(115200);
-  cli.set.Prompt(">> ").showWelcome().setDebugMode(false);
+  cli.setPrompt(">> ").showWelcome().setDebugMode(false);
   cli.setCommands(cmd);
 }
 
