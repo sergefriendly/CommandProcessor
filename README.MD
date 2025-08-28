@@ -38,6 +38,7 @@ double NewtonRaphsonSqrt(double x, double initial_guess, double iterations, bool
 }
 
 void sqrt() {
+  io::cli.showWelcome().setDebugMode(false);
   int result = NewtonRaphsonSqrt(utils::d(cli[1], utils::d(cli[2], utils:i(cli[3]));
   io::println(io::ORANGE, result, io::NO);
 }
