@@ -57,22 +57,24 @@ void sqrt() {
 
 // Объявляем массив команд: {Имя, Функция-обработчик, Кол-во аргументов}
 Command cmd[] = {
-  {"say", say, 1},
-  {"sqrt", sqrt, -1},
+  {"say", sayHello, 1}, // Ожидает 1 аргумент
+  {"sqrt", sqrt, -1}, // Ожидает бесконечного много аргументов, но необходимо всего 3
 };
 
 void setup() {
-  io::init(115200);
-  cli.setPrompt(">> ").showWelcome().setDebugMode(false);
+  io::init(115200); // Инициализируем Serial
+  cli.setPrompt(">> ")
+     .showWelcome()
+     .setDebugMode(false); // Включаем по необходимости
   cli.setCommands(cmd);
 }
 
 void loop() {
-  cli.readInput();
+  cli.readInput(); // Неблокирующее чтение из Serial
 }
 ```
 
-### Пример 2.
+### Пример 2. Базовая настройка на ПК
 ```C++
 #include "CommandProcessor.h"
 #include "io.h"
