@@ -1,18 +1,18 @@
 namespace io {
 
-// Покажите главный класс и его возможности
+// Класс для управления вводом-выводом и также цветом текса
 class IO {
 public:
-    // Покажите, что есть инициализация для разных платформ
+    
     void init(unsigned long baud);
     int available();
     char read();
 
-    // Вариадические шаблоны - это солидно
+    // Вариадические шаблоны
     template<typename T, typename... Args>
     void print(T first, Args... args);
 
-    // Покажите систему цветов - это "вау"-эффект
+    // Система цветов
     struct Color {
         Code RED{"\e[1;31m", "", &isEnabled_};
         Code GREEN{"\e[1;32m", "", &isEnabled_};
