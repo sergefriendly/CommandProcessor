@@ -1,5 +1,21 @@
 # CommandProcessor
 
+```markdown
+# CommandProcessor
+
+<p align="center">
+  <strong>Мощный и легковесный процессор команд для встроенных систем (Embedded C++)</strong>
+  <br>
+  <br>
+  <img src="https://img.shields.io/badge/C++-17+-blue.svg" alt="C++17">
+  <img src="https://img.shields.io/badge/Platforms-AVR%20%7C%20PC-green.svg" alt="Platforms">
+  <img src="https://img.shields.io/badge/Memory-Static%20Allocation-brightgreen.svg" alt="Static Memory">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License">
+</p>
+
+**Поддержка токенизации, цветного вывода и автодополнения для embedded-систем и не только.**
+```
+
 **Мощный и легковесный процессор команд для встроенных систем (Embedded C++) с поддержкой токенизации, цветного вывода и автодополнения.**
 
 Этот проект представляет собой шаблонный класс на C++ для обработки текстовых команд в интерфейсах командной строки (CLI). Он разработан с учетом работы на микроконтроллерах (AVR) и на ПК, поддерживает динамическую токенизацию, цветной вывод, обработку escape-последовательностей и поиск команд.
