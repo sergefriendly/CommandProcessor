@@ -1,19 +1,5 @@
 # CommandProcessor
 
-```markdown
-
-<p align="center">
-  <strong>Мощный и легковесный процессор команд для встроенных систем (Embedded C++)</strong>
-  <br>
-  <br>
-  <img src="https://img.shields.io/badge/C++-17+-blue.svg" alt="C++17">
-  <img src="https://img.shields.io/badge/Platforms-AVR%20%7C%20PC-green.svg" alt="Platforms">
-  <img src="https://img.shields.io/badge/Memory-Static%20Allocation-brightgreen.svg" alt="Static Memory">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License">
-</p>
-
-```
-
 **Поддержка токенизации, цветного вывода и автодополнения для embedded-систем и не только.**
 
 
@@ -32,7 +18,8 @@
 * **Экранирование символов:** Встроенная обработка escape-последовательностей (\n, \t, \r и др.).
 
 ## Быстрый старт
-### Пример 1.
+### Пример 1. Базовая настройка на Arduino
+
 ```C++
 #include "CommandProcessor.h"
 #include "io.h"
@@ -41,12 +28,16 @@
 using utils::i; // char* to int
 using utils::d; // char* to double
 
+// Создаем экземпляр процессора (буфер 64 байта, индекс на 16 токенов)
 CommandProcessor<64, 16> cli;
 
-void say() {
+// Создаём простую функцию
+void sayHello() {
+  // cli[1] содержит первый аргумент
   io::println(io::YELLOW, "!!! ", cli[1], " !!!", io::NO);
 }
 
+// Создаём вспомогательную функцию по выислению квадратного корня методом Ньютона-Рафсона 
 double NewtonRaphsonSqrt(double x, double initial_guess, double iterations, bool verbose = false) {
   // Метод Ньютона-Рафсона
   double result = initial_guess;
@@ -58,13 +49,15 @@ double NewtonRaphsonSqrt(double x, double initial_guess, double iterations, bool
   return result;
 }
 
+// Оборачиваем метод для подачи в массив комманд
 void sqrt() {
   int result = NewtonRaphsonSqrt( d(cli[1]), d(cli[2]), i(cli[3]) );
   io::println(io::ORANGE, result, io::NO);
 }
 
+// Объявляем массив команд: {Имя, Функция-обработчик, Кол-во аргументов}
 Command cmd[] = {
-  {"say", say, -1},
+  {"say", say, 1},
   {"sqrt", sqrt, -1},
 };
 
@@ -112,21 +105,21 @@ int main() {
 ```C++
 {"cmd", cmd, -1},
 ```
-"cmd"  — это псевдоним к функции, по которому к этой функции можно обращаться интерактивно;
+"cmd"  — это имя (или псевдоним) к функции-обработчику, по которому к этой функции можно обращаться интерактивно;
 
-cmd    — сама функция;
+cmd    — сама функция-обработчик;
 
--1     — способ разбияния строки для отделения аргументов ```expectedArgCount```.
+-1     — ожидаемое количество аргументов ```expectedArgCount```.
 
-В зависимости от способа на выходе получается разная интерпретация:
+В зависимости от ожидаемого количества аргументов на выходе получается разная интерпретация:
 
 ```text
-"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1 arg2 arg3 arg4"] при expectedArgCount = 1 → отделяется ровно одно слово — название команды.
-"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2 arg3 arg4"] при expectedArgCount = 2 → отделяется команда и первый аргумент, всё остальное идёт вторым аргументом.
-"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2", "arg3 arg4"] при expectedArgCount = 3 → отделяется команда и первый и второй аргументы, всё остальное идёт третьим аргументом.
+"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1 arg2 arg3 arg4"] при expectedArgCount = 1 → отделяется ровно одно слово — название команды, всё остальное идёт одним аргументом.
+"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2 arg3 arg4"] при expectedArgCount = 2 → отделяется команда и первый аргумент, всё остальное идёт третьим аргументом.
+"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2", "arg3 arg4"] при expectedArgCount = 3 → отделяется команда и первый и второй аргументы, всё остальное идёт четвёртым аргументом.
 И т.д.
 "cmd arg1 arg2 arg3 arg4" → ["cmd arg1 arg2 arg3 arg4"] при expectedArgCount = 0 → не отделяется ничего, но команда идентифицируется, и вместе с аргументами подаётся как единое целое.
-"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2", "arg3", "arg4"] при expectedArgCount = 0 → отделяются все слова, первое слово — команда, все остальные — аргументы.
+"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2", "arg3", "arg4"] при expectedArgCount = -1 → отделяются все слова, первое слово — команда, все остальные — аргументы.
 ```
 
 Для аргументов, которые подаются в комлексе, может быть использован специальный парсер, разработанный пользователем.
