@@ -92,8 +92,8 @@ using utils::d; // char* to double
 CommandProcessor<64, 16> cli;
 
 void half_sum() {
-  double a = d(cli[1]);
-  double b = d(cli[2]);
+  double a = d( cli[1] );
+  double b = d( cli[2] );
   double result = (a + b) / 2;
   io::println("The half-sum of ", a, " and ", b, " is ", io::BLUE, result, io::NO);
 }
@@ -121,12 +121,12 @@ int main() {
 В зависимости от ожидаемого количества аргументов на выходе получается разная интерпретация:
 
 ```text
-"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1 arg2 arg3 arg4"] при expectedArgCount = 1 → отделяется ровно одно слово — название команды, всё остальное идёт одним аргументом.
-"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2 arg3 arg4"] при expectedArgCount = 2 → отделяется команда и первый аргумент, всё остальное идёт третьим аргументом.
-"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2", "arg3 arg4"] при expectedArgCount = 3 → отделяется команда и первый и второй аргументы, всё остальное идёт четвёртым аргументом.
+"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1 arg2 arg3 arg4"]           при  1;
+"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2 arg3 arg4"]        при  2;
+"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2", "arg3 arg4"]     при  3;
 И т.д.
-"cmd arg1 arg2 arg3 arg4" → ["cmd arg1 arg2 arg3 arg4"] при expectedArgCount = 0 → не отделяется ничего, но команда идентифицируется, и вместе с аргументами подаётся как единое целое.
-"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2", "arg3", "arg4"] при expectedArgCount = -1 → отделяются все слова, первое слово — команда, все остальные — аргументы.
+"cmd arg1 arg2 arg3 arg4" → ["cmd arg1 arg2 arg3 arg4"]              при  0;
+"cmd arg1 arg2 arg3 arg4" → ["cmd", "arg1", "arg2", "arg3", "arg4"]  при -1;
 ```
 
 Для аргументов, которые подаются в комлексе, может быть использован специальный парсер, разработанный пользователем.
