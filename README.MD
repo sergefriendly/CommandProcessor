@@ -58,7 +58,7 @@ double NewtonRaphsonSqrt(double x, double initial_guess, double iterations, bool
 
 // Оборачиваем метод для подачи в массив комманд
 void sqrt() {
-  int result = NewtonRaphsonSqrt( d(cli[1]), d(cli[2]), i(cli[3]) );
+  int result = NewtonRaphsonSqrt( d(cli[1]), d(cli[2]), i(cli[3]), i(cli[4]) );
   io::println(io::ORANGE, result, io::NO);
 }
 
