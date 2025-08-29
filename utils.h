@@ -1,5 +1,11 @@
 namespace utils {
 
+// Конвертирует char* в double
+double d(const char* str);
+
+// Конвертирует char* в int
+int i(const char* str);
+
 // Эта функция сразу говорит о качестве
 void replaceEscapeSequencesIn(char *const code);
 
