@@ -103,7 +103,7 @@ Command cmd[] = {
 };
 
 int main() {
-  cli.run(cmd, false, ">>> "); // debugMode = false, prompt = ">>> "
+  cli.run(cmd, false, ">>> "); // режим дебага выключен, приглашение осуществляется символами ">>> "
   return 0;
 }
 ```
