@@ -16,7 +16,7 @@ public:
     uint capacity() const;
     uint position() const;
 
-    // Это очень круто для embedded - фабричные методы
+    // Фабричные методы
     static Index createStatic();
     static Index createDynamic(uint size);
 };
